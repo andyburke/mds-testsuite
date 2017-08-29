@@ -1,0 +1,26 @@
+{
+  "name": "mds-testsuite",
+  "version": "1.0.0",
+  "description": "multiple data store test suite",
+  "contributors": [
+    "Andy Burke <andy.burke@mailbox.earth> (https://github.com/andyburke)"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "docker_clean": "npm run docker_down && docker-compose rm -f",
+    "docker_down": "docker-compose stop",
+    "docker_up": "docker-compose up -d",
+    "test": "npm run docker_up && tape test/**/*.js | tap-spec && npm run docker_clean"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "aws-sdk": "^2.104.0",
+    "eslint": "^4.5.0",
+    "multidatastore": "^2.0.0",
+    "multidatastore-postgres": "^1.0.7",
+    "multidatastore-rethinkdb": "^1.0.4",
+    "multidatastore-s3": "^1.0.4",
+    "tap-spec": "^4.1.1",
+    "tape-async": "^2.3.0"
+  }
+}

@@ -1,0 +1,14 @@
+rethinkdb:
+    image: rethinkdb:2.3
+    ports:
+        - "8080:8080"
+        - "28015:28015"
+        - "29015:29015"
+postgres:
+    image: postgres:9
+    ports:
+        - "5432:5432"
+s3:
+    image: lphoward/fake-s3
+    ports:
+        - "4569:4569"
