@@ -11,7 +11,7 @@ tape ( 'postgres: waiting for db to be ready', async t => {
 } );
 
 tape( 'postgres: put', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
 
     try {
         await mds.init( [ Postgres_Driver.create( {
@@ -55,7 +55,7 @@ tape( 'postgres: put', async t => {
 } );
 
 tape( 'postgres: put (update)', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
 
     try {
         await mds.init( [ Postgres_Driver.create( {
@@ -110,7 +110,7 @@ tape( 'postgres: put (update)', async t => {
 } );
 
 tape( 'postgres: get (readable)', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
 
     try {
         await mds.init( [ Postgres_Driver.create( {
@@ -159,7 +159,7 @@ tape( 'postgres: get (readable)', async t => {
 } );
 
 tape( 'postgres: get (unreadable)', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
 
     try {
         await mds.init( [ Postgres_Driver.create( {
@@ -213,7 +213,7 @@ tape( 'postgres: get (unreadable)', async t => {
 } );
 
 tape( 'postgres: delete', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
 
     try {
         await mds.init( [ Postgres_Driver.create( {
@@ -273,7 +273,7 @@ tape( 'postgres: delete', async t => {
 } );
 
 tape( 'postgres: delete (ignore_delete)', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
 
     try {
         await mds.init( [ Postgres_Driver.create( {
@@ -339,7 +339,7 @@ tape( 'postgres: delete (ignore_delete)', async t => {
 // different id field
 
 tape( 'postgres: put (non-standard id_field)', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
 
     try {
         await mds.init( [ Postgres_Driver.create( {
@@ -384,7 +384,7 @@ tape( 'postgres: put (non-standard id_field)', async t => {
 } );
 
 tape( 'postgres: put (update) (non-standard id_field)', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
 
     try {
         await mds.init( [ Postgres_Driver.create( {
@@ -440,7 +440,7 @@ tape( 'postgres: put (update) (non-standard id_field)', async t => {
 } );
 
 tape( 'postgres: get (readable) (non-standard id_field)', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
 
     try {
         await mds.init( [ Postgres_Driver.create( {
@@ -490,7 +490,7 @@ tape( 'postgres: get (readable) (non-standard id_field)', async t => {
 } );
 
 tape( 'postgres: get (unreadable) (non-standard id_field)', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
 
     try {
         await mds.init( [ Postgres_Driver.create( {
@@ -545,7 +545,7 @@ tape( 'postgres: get (unreadable) (non-standard id_field)', async t => {
 } );
 
 tape( 'postgres: delete (non-standard id_field)', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
 
     try {
         await mds.init( [ Postgres_Driver.create( {
@@ -606,7 +606,7 @@ tape( 'postgres: delete (non-standard id_field)', async t => {
 } );
 
 tape( 'postgres: delete (ignore_delete) (non-standard id_field)', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
 
     try {
         await mds.init( [ Postgres_Driver.create( {

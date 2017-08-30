@@ -1,19 +1,18 @@
 'use strict';
 
-const AWS = require( 'aws-sdk' );
 const Multi_Data_Store = require( 'multidatastore' );
 const S3_Driver = require( 'multidatastore-s3' );
 const tape = require( 'tape-async' );
 
 tape( 'S3 Driver', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
     await mds.init( [ S3_Driver.create( {
         bucket: 'test',
         s3: {
             s3ForcePathStyle: true,
             accessKeyId: 'ACCESS_KEY_ID',
             secretAccessKey: 'SECRET_ACCESS_KEY',
-            endpoint: new AWS.Endpoint( 'http://localhost:4569' ),
+            endpoint: 'http://localhost:4569',
             sslEnabled: false
         }
     } ) ] );

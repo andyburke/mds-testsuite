@@ -5,7 +5,7 @@ const Rethink_Driver = require( 'multidatastore-rethinkdb' );
 const tape = require( 'tape-async' );
 
 tape( 'Rethink Driver', async t => {
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
     await mds.init( [ Rethink_Driver.create( {
         database: 'test',
         table: 'test'

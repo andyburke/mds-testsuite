@@ -14,13 +14,12 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "aws-sdk": "^2.104.0",
     "eslint": "^4.5.0",
-    "multidatastore": "^2.0.0",
+    "multidatastore": "^2.2.0",
     "multidatastore-b2": "^1.0.2",
     "multidatastore-postgres": "^1.0.7",
-    "multidatastore-rethinkdb": "^1.0.4",
-    "multidatastore-s3": "^1.0.4",
+    "multidatastore-rethinkdb": "^1.2.1",
+    "multidatastore-s3": "^1.1.0",
     "tap-spec": "^4.1.1",
     "tape-async": "^2.3.0"
   }

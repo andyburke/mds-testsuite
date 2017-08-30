@@ -15,7 +15,7 @@ tape( 'B2 Driver', async t => {
         return;
     }
 
-    const mds = Multi_Data_Store.create();
+    const mds = await Multi_Data_Store.create();
     await mds.init( [ B2_Driver.create( {
         bucket: 'test-mds',
         b2: {
