@@ -4,6 +4,13 @@ const Multi_Data_Store = require( 'multidatastore' );
 const Postgres_Driver = require( 'multidatastore-postgres' );
 const tape = require( 'tape-async' );
 
+const DB_OPTIONS = {
+    host: '127.0.0.1',
+    user: 'postgres',
+    password: 'postgres',
+    database: 'postgres'
+};
+
 tape ( 'postgres: waiting for db to be ready', async t => {
     await new Promise( resolve => setTimeout( () => resolve(), 10000 ) );
     t.pass( 'waited for db to ready' );
@@ -15,24 +22,23 @@ tape( 'postgres: put', async t => {
 
     try {
         await mds.init( [ Postgres_Driver.create( {
-            db: {
-                user: 'postgres',
-                database: 'postgres'
-            },
+            db: DB_OPTIONS,
             table: 'test',
-            table_create_sql: 'CREATE TABLE IF NOT EXISTS test (id text, data text)',
-            mapper: object => {
-                return {
-                    id: object.id,
-                    data: object.test
-                };
-            },
-            unmapper: result => {
-                return {
-                    id: result.id,
-                    test: result.data
-                };
-            }
+            table_create_sql: 'CREATE TABLE IF NOT EXISTS test (id text, data text, PRIMARY KEY( id ) )',
+            processors: [ {
+                serialize: object => {
+                    return !!object ? {
+                        id: object.id,
+                        data: object.test
+                    } : object;
+                },
+                deserialize: object => {
+                    return !!object ? {
+                        id: object.id,
+                        test: object.data
+                    } : object;
+                }
+            } ]
         } ) ] );
 
         await mds.put( {
@@ -59,24 +65,23 @@ tape( 'postgres: put (update)', async t => {
 
     try {
         await mds.init( [ Postgres_Driver.create( {
-            db: {
-                user: 'postgres',
-                database: 'postgres'
-            },
+            db: DB_OPTIONS,
             table: 'test',
-            table_create_sql: 'CREATE TABLE IF NOT EXISTS test (id text, data text)',
-            mapper: object => {
-                return {
-                    id: object.id,
-                    data: object.test
-                };
-            },
-            unmapper: result => {
-                return {
-                    id: result.id,
-                    test: result.data
-                };
-            }
+            table_create_sql: 'CREATE TABLE IF NOT EXISTS test (id text, data text, PRIMARY KEY( id ) )',
+            processors: [ {
+                serialize: object => {
+                    return !!object ? {
+                        id: object.id,
+                        data: object.test
+                    } : object;
+                },
+                deserialize: object => {
+                    return !!object ? {
+                        id: object.id,
+                        test: object.data
+                    } : object;
+                }
+            } ]
         } ) ] );
 
         await mds.put( {
@@ -114,24 +119,23 @@ tape( 'postgres: get (readable)', async t => {
 
     try {
         await mds.init( [ Postgres_Driver.create( {
-            db: {
-                user: 'postgres',
-                database: 'postgres'
-            },
+            db: DB_OPTIONS,
             table: 'test',
-            table_create_sql: 'CREATE TABLE IF NOT EXISTS test (id text, data text)',
-            mapper: object => {
-                return {
-                    id: object.id,
-                    data: object.test
-                };
-            },
-            unmapper: result => {
-                return {
-                    id: result.id,
-                    test: result.data
-                };
-            }
+            table_create_sql: 'CREATE TABLE IF NOT EXISTS test (id text, data text, PRIMARY KEY( id ) )',
+            processors: [ {
+                serialize: object => {
+                    return !!object ? {
+                        id: object.id,
+                        data: object.test
+                    } : object;
+                },
+                deserialize: object => {
+                    return !!object ? {
+                        id: object.id,
+                        test: object.data
+                    } : object;
+                }
+            } ]
         } ) ] );
 
         await mds.put( {
@@ -163,25 +167,24 @@ tape( 'postgres: get (unreadable)', async t => {
 
     try {
         await mds.init( [ Postgres_Driver.create( {
-            db: {
-                user: 'postgres',
-                database: 'postgres'
-            },
+            db: DB_OPTIONS,
             readable: false,
             table: 'test',
-            table_create_sql: 'CREATE TABLE IF NOT EXISTS test (id text, data text)',
-            mapper: object => {
-                return {
-                    id: object.id,
-                    data: object.test
-                };
-            },
-            unmapper: result => {
-                return {
-                    id: result.id,
-                    test: result.data
-                };
-            }
+            table_create_sql: 'CREATE TABLE IF NOT EXISTS test (id text, data text, PRIMARY KEY( id ) )',
+            processors: [ {
+                serialize: object => {
+                    return !!object ? {
+                        id: object.id,
+                        data: object.test
+                    } : object;
+                },
+                deserialize: object => {
+                    return !!object ? {
+                        id: object.id,
+                        test: object.data
+                    } : object;
+                }
+            } ]
         } ) ] );
 
         await mds.put( {
@@ -217,24 +220,23 @@ tape( 'postgres: delete', async t => {
 
     try {
         await mds.init( [ Postgres_Driver.create( {
-            db: {
-                user: 'postgres',
-                database: 'postgres'
-            },
+            db: DB_OPTIONS,
             table: 'test',
-            table_create_sql: 'CREATE TABLE IF NOT EXISTS test (id text, data text)',
-            mapper: object => {
-                return {
-                    id: object.id,
-                    data: object.test
-                };
-            },
-            unmapper: result => {
-                return {
-                    id: result.id,
-                    test: result.data
-                };
-            }
+            table_create_sql: 'CREATE TABLE IF NOT EXISTS test (id text, data text, PRIMARY KEY( id ) )',
+            processors: [ {
+                serialize: object => {
+                    return !!object ? {
+                        id: object.id,
+                        data: object.test
+                    } : object;
+                },
+                deserialize: object => {
+                    return !!object ? {
+                        id: object.id,
+                        test: object.data
+                    } : object;
+                }
+            } ]
         } ) ] );
 
         await mds.put( {
@@ -277,25 +279,24 @@ tape( 'postgres: delete (ignore_delete)', async t => {
 
     try {
         await mds.init( [ Postgres_Driver.create( {
-            db: {
-                user: 'postgres',
-                database: 'postgres'
-            },
+            db: DB_OPTIONS,
             ignore_delete: true,
             table: 'test',
-            table_create_sql: 'CREATE TABLE IF NOT EXISTS test (id text, data text)',
-            mapper: object => {
-                return {
-                    id: object.id,
-                    data: object.test
-                };
-            },
-            unmapper: result => {
-                return {
-                    id: result.id,
-                    test: result.data
-                };
-            }
+            table_create_sql: 'CREATE TABLE IF NOT EXISTS test (id text, data text, PRIMARY KEY( id ) )',
+            processors: [ {
+                serialize: object => {
+                    return !!object ? {
+                        id: object.id,
+                        data: object.test
+                    } : object;
+                },
+                deserialize: object => {
+                    return !!object ? {
+                        id: object.id,
+                        test: object.data
+                    } : object;
+                }
+            } ]
         } ) ] );
 
         await mds.put( {
@@ -343,25 +344,24 @@ tape( 'postgres: put (non-standard id_field)', async t => {
 
     try {
         await mds.init( [ Postgres_Driver.create( {
-            db: {
-                user: 'postgres',
-                database: 'postgres'
-            },
+            db: DB_OPTIONS,
             id_field: '_id',
             table: 'test_alternate_id',
-            table_create_sql: 'CREATE TABLE IF NOT EXISTS test_alternate_id (_id text, data text)',
-            mapper: object => {
-                return {
-                    _id: object.id,
-                    data: object.test
-                };
-            },
-            unmapper: result => {
-                return {
-                    id: result._id,
-                    test: result.data
-                };
-            }
+            table_create_sql: 'CREATE TABLE IF NOT EXISTS test_alternate_id (_id text, data text, PRIMARY KEY( _id ) )',
+            processors: [ {
+                serialize: object => {
+                    return !!object ? {
+                        _id: object.id,
+                        data: object.test
+                    } : object;
+                },
+                deserialize: object => {
+                    return !!object ? {
+                        id: object._id,
+                        test: object.data
+                    } : object;
+                }
+            } ]
         } ) ] );
 
         await mds.put( {
@@ -388,25 +388,24 @@ tape( 'postgres: put (update) (non-standard id_field)', async t => {
 
     try {
         await mds.init( [ Postgres_Driver.create( {
-            db: {
-                user: 'postgres',
-                database: 'postgres'
-            },
+            db: DB_OPTIONS,
             id_field: '_id',
             table: 'test_alternate_id',
-            table_create_sql: 'CREATE TABLE IF NOT EXISTS test_alternate_id (_id text, data text)',
-            mapper: object => {
-                return {
-                    _id: object.id,
-                    data: object.test
-                };
-            },
-            unmapper: result => {
-                return {
-                    id: result._id,
-                    test: result.data
-                };
-            }
+            table_create_sql: 'CREATE TABLE IF NOT EXISTS test_alternate_id (_id text, data text, PRIMARY KEY( _id ) )',
+            processors: [ {
+                serialize: object => {
+                    return !!object ? {
+                        _id: object.id,
+                        data: object.test
+                    } : object;
+                },
+                deserialize: object => {
+                    return !!object ? {
+                        id: object._id,
+                        test: object.data
+                    } : object;
+                }
+            } ]
         } ) ] );
 
         await mds.put( {
@@ -444,25 +443,24 @@ tape( 'postgres: get (readable) (non-standard id_field)', async t => {
 
     try {
         await mds.init( [ Postgres_Driver.create( {
-            db: {
-                user: 'postgres',
-                database: 'postgres'
-            },
+            db: DB_OPTIONS,
             id_field: '_id',
             table: 'test_alternate_id',
-            table_create_sql: 'CREATE TABLE IF NOT EXISTS test_alternate_id (_id text, data text)',
-            mapper: object => {
-                return {
-                    _id: object.id,
-                    data: object.test
-                };
-            },
-            unmapper: result => {
-                return {
-                    id: result._id,
-                    test: result.data
-                };
-            }
+            table_create_sql: 'CREATE TABLE IF NOT EXISTS test_alternate_id (_id text, data text, PRIMARY KEY( _id ) )',
+            processors: [ {
+                serialize: object => {
+                    return !!object ? {
+                        _id: object.id,
+                        data: object.test
+                    } : object;
+                },
+                deserialize: object => {
+                    return !!object ? {
+                        id: object._id,
+                        test: object.data
+                    } : object;
+                }
+            } ]
         } ) ] );
 
         await mds.put( {
@@ -494,26 +492,25 @@ tape( 'postgres: get (unreadable) (non-standard id_field)', async t => {
 
     try {
         await mds.init( [ Postgres_Driver.create( {
-            db: {
-                user: 'postgres',
-                database: 'postgres'
-            },
+            db: DB_OPTIONS,
             readable: false,
             id_field: '_id',
             table: 'test_alternate_id',
-            table_create_sql: 'CREATE TABLE IF NOT EXISTS test_alternate_id (_id text, data text)',
-            mapper: object => {
-                return {
-                    _id: object.id,
-                    data: object.test
-                };
-            },
-            unmapper: result => {
-                return {
-                    id: result._id,
-                    test: result.data
-                };
-            }
+            table_create_sql: 'CREATE TABLE IF NOT EXISTS test_alternate_id (_id text, data text, PRIMARY KEY( _id ) )',
+            processors: [ {
+                serialize: object => {
+                    return !!object ? {
+                        _id: object.id,
+                        data: object.test
+                    } : object;
+                },
+                deserialize: object => {
+                    return !!object ? {
+                        id: object._id,
+                        test: object.data
+                    } : object;
+                }
+            } ]
         } ) ] );
 
         await mds.put( {
@@ -549,25 +546,24 @@ tape( 'postgres: delete (non-standard id_field)', async t => {
 
     try {
         await mds.init( [ Postgres_Driver.create( {
-            db: {
-                user: 'postgres',
-                database: 'postgres'
-            },
+            db: DB_OPTIONS,
             id_field: '_id',
             table: 'test_alternate_id',
-            table_create_sql: 'CREATE TABLE IF NOT EXISTS test_alternate_id (_id text, data text)',
-            mapper: object => {
-                return {
-                    _id: object.id,
-                    data: object.test
-                };
-            },
-            unmapper: result => {
-                return {
-                    id: result._id,
-                    test: result.data
-                };
-            }
+            table_create_sql: 'CREATE TABLE IF NOT EXISTS test_alternate_id (_id text, data text, PRIMARY KEY( _id ) )',
+            processors: [ {
+                serialize: object => {
+                    return !!object ? {
+                        _id: object.id,
+                        data: object.test
+                    } : object;
+                },
+                deserialize: object => {
+                    return !!object ? {
+                        id: object._id,
+                        test: object.data
+                    } : object;
+                }
+            } ]
         } ) ] );
 
         await mds.put( {
@@ -610,26 +606,25 @@ tape( 'postgres: delete (ignore_delete) (non-standard id_field)', async t => {
 
     try {
         await mds.init( [ Postgres_Driver.create( {
-            db: {
-                user: 'postgres',
-                database: 'postgres'
-            },
+            db: DB_OPTIONS,
             ignore_delete: true,
             id_field: '_id',
             table: 'test_alternate_id',
-            table_create_sql: 'CREATE TABLE IF NOT EXISTS test_alternate_id (_id text, data text)',
-            mapper: object => {
-                return {
-                    _id: object.id,
-                    data: object.test
-                };
-            },
-            unmapper: result => {
-                return {
-                    id: result._id,
-                    test: result.data
-                };
-            }
+            table_create_sql: 'CREATE TABLE IF NOT EXISTS test_alternate_id (_id text, data text, PRIMARY KEY( _id ) )',
+            processors: [ {
+                serialize: object => {
+                    return !!object ? {
+                        _id: object.id,
+                        data: object.test
+                    } : object;
+                },
+                deserialize: object => {
+                    return !!object ? {
+                        id: object._id,
+                        test: object.data
+                    } : object;
+                }
+            } ]
         } ) ] );
 
         await mds.put( {

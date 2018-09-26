@@ -1,14 +1,23 @@
-rethinkdb:
-    image: rethinkdb:2.3
-    ports:
-        - "8080:8080"
-        - "28015:28015"
-        - "29015:29015"
-postgres:
-    image: postgres:9
-    ports:
-        - "5432:5432"
-s3:
-    image: lphoward/fake-s3
-    ports:
-        - "4569:4569"
+version: "2.2"
+services:
+    rethinkdb:
+        image: rethinkdb:2.3
+        command: rethinkdb --bind all --initial-password password
+        ports:
+            - 127.0.0.1:8080:8080
+            - 127.0.0.1:28015:28015
+            - 29015
+    postgres:
+        image: postgres:9-alpine
+        ports:
+            - 127.0.0.1:5432:5432
+        environment:
+            - POSTGRES_PASSWORD=postgres
+    s3:
+        image: minio/minio
+        command: server /data
+        ports:
+            - 127.0.0.1:9000:9000
+        environment:
+            - MINIO_ACCESS_KEY=ACCESSKEYID
+            - MINIO_SECRET_KEY=SECRETACCESSKEY

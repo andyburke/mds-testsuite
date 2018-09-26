@@ -10,9 +10,9 @@ tape( 'S3 Driver', async t => {
         bucket: 'test',
         s3: {
             s3ForcePathStyle: true,
-            accessKeyId: 'ACCESS_KEY_ID',
-            secretAccessKey: 'SECRET_ACCESS_KEY',
-            endpoint: 'http://localhost:4569',
+            accessKeyId: 'ACCESSKEYID',
+            secretAccessKey: 'SECRETACCESSKEY',
+            endpoint: 'http://127.0.0.1:9000',
             sslEnabled: false
         }
     } ) ] );

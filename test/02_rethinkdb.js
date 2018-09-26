@@ -7,6 +7,10 @@ const tape = require( 'tape-async' );
 tape( 'Rethink Driver', async t => {
     const mds = await Multi_Data_Store.create();
     await mds.init( [ Rethink_Driver.create( {
+        db: {
+            host: '127.0.0.1',
+            password: 'password'
+        },
         database: 'test',
         table: 'test'
     } ) ] );
